@@ -1,0 +1,713 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2017-09-17 Son 21:01 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>JuliaKara Examples</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Sebastian Pech" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="https://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="https://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js"></script>
+<script type="text/javascript" src="https://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+<style>.src {background-color: #303030; color: #e5e5e5; border-color: #303030; padding: 0px; white-space:pre;} pre {background-color: #303030}</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2017 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">JuliaKara Examples</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org9ff52c3">1. Particle Swarm Optimisation using JuliaKara</a>
+<ul>
+<li><a href="#org85c2905">1.1. Problem description</a></li>
+<li><a href="#org24d63bd">1.2. Implementation</a></li>
+<li><a href="#org6be1e69">1.3. Solution</a>
+<ul>
+<li><a href="#orge0bc4db">1.3.1. Startup</a></li>
+<li><a href="#org28bc0f8">1.3.2. Initialise the World</a></li>
+<li><a href="#org8e5823c">1.3.3. Searching Algorithm</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org9ff52c3" class="outline-2">
+<h2 id="org9ff52c3"><span class="section-number-2">1</span> Particle Swarm Optimisation using JuliaKara</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-org85c2905" class="outline-3">
+<h3 id="org85c2905"><span class="section-number-3">1.1</span> Problem description</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+The aim of this example is to use multiple Karas to find the region with
+the highest food density (leafs), in order to feed all Karas.
+The current density \(d\) at a location \(p\) is determined by counting all the fields in a
+radius \(r\) around \(p\). Therefore,
+</p>
+\begin{equation}
+d = \frac{n_{leafs}}{n_{fields}}
+\end{equation}
+<p>
+where \(n_{leafs}\) is the number of found leafs and \(n_{fields}\) is the number of total fields.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org24d63bd" class="outline-3">
+<h3 id="org24d63bd"><span class="section-number-3">1.2</span> Implementation</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+The implementation is made based on particle swarm optimisation (PSO) <sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup>.
+Herein the velocity \(v_{i,j}\) and position \(p_{i,j}\) of a particle \(i\) (or Kara)
+is updated as follows:
+</p>
+\begin{equation}
+v_{i,j+1} = v_{i,j} + c_1 \cdot r_1 \cdot (p_{i,j}^{best} - p_{i,j}) + c_2 \cdot r_2 \cdot (p_{j}^{gbest} - p_{i,j})
+\end{equation}
+\begin{equation}
+p_{i,j+1} = p_{i,j} + v_{i,j+1}
+\end{equation}
+<p>
+where \(j\) denotes the current step, \(p_{i,j}^{best}\) denotes the best known
+position for particle \(i\), \(p_{j}^{gbest}\) denotes the globally best known
+position, \(c_1\) and \(c_2\) are learning factors an usually
+\(c_1 = c_2 = 2\) and \(r_1\) and \(r_2\) are random numbers uniformly distributed
+between 0 and 1.
+</p>
+
+<p>
+However, two problems arise:
+</p>
+<ol class="org-ol">
+<li>The best known points change as karas, of course, eat the leafs they find</li>
+<li>In this world Karas should only be able to move one step per iteration</li>
+</ol>
+
+<p>
+Therefore, an alternative implementation based on PSO is derived in Section <a href="#org6be1e69">1.3</a>.
+</p>
+</div>
+</div>
+<div id="outline-container-org6be1e69" class="outline-3">
+<h3 id="org6be1e69"><span class="section-number-3">1.3</span> Solution</h3>
+<div class="outline-text-3" id="text-1-3">
+</div>
+<div id="outline-container-orge0bc4db" class="outline-4">
+<h4 id="orge0bc4db"><span class="section-number-4">1.3.1</span> Startup</h4>
+<div class="outline-text-4" id="text-1-3-1">
+<p>
+To startup <code>JuliaKara</code> it is loaded and for convenience some additional methods
+are imported
+</p>
+<div class="org-src-container">
+<pre><code class="src src-julia"><span style="color: #fff59d;">using</span> JuliaKara
+<span style="color: #fff59d;">import</span> JuliaKara.JuliaKara_noGUI.ActorsWorld:Location,
+Orientation,
+location_fix_ooBound,
+actor_definition_at_location,
+Actor
+
+<span style="color: #fff59d;">import</span> JuliaKara.JuliaKara_noGUI.ACTOR_DEFINITIONS
+</code></pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org28bc0f8" class="outline-4">
+<h4 id="org28bc0f8"><span class="section-number-4">1.3.2</span> Initialise the World</h4>
+<div class="outline-text-4" id="text-1-3-2">
+<p>
+The world's size is defined by the following variables:
+</p>
+<div class="org-src-container">
+<pre><code class="src src-julia"><span style="color: #fff59d;">const</span> world_width = 50
+<span style="color: #fff59d;">const</span> world_height = 50
+</code></pre>
+</div>
+
+<p>
+Initially the world is created empty.
+</p>
+<div class="org-src-container">
+<pre><code class="src src-julia">world = World(world_width,world_height,<span style="color: #9ccc65;">"PSO Kara"</span>)
+</code></pre>
+</div>
+</div>
+
+<ol class="org-ol">
+<li><a id="orga8da6a1"></a>Fill the world with random leafs<br />
+<div class="outline-text-5" id="text-1-3-2-1">
+<p>
+The leaf distribution is generated such that the world consists of large,
+medium and small sized spots.
+Therefore, two functions are defined which generate random points withing the
+world and random sizes relative to the world's size.
+</p>
+<div class="org-src-container">
+<pre><code class="src src-julia"><span style="color: #9ccc65;">"Returns a random points withing the word of size world_width x world_height"</span>
+<span style="color: #fff59d;">function</span> <span style="color: #84ffff;">randP</span>()
+    Location(rand(1:world_width),rand(1:world_height))
+<span style="color: #fff59d;">end</span>
+
+<span style="color: #9ccc65;">"""</span>
+<span style="color: #9ccc65;">Returns a randomises size relative to the world</span>
+<span style="color: #9ccc65;">The function takes the smalles dimension and mutliplies it with the desired</span>
+<span style="color: #9ccc65;">relative size with a small randomisation.</span>
+<span style="color: #9ccc65;">"""</span>
+<span style="color: #fff59d;">function</span> <span style="color: #84ffff;">randS</span>(relSize<span style="color: #ffffff; background-color: #263238;">::</span><span style="color: #84ffff;">Float64</span>)
+    s = convert(<span style="color: #84ffff;">Int</span>,round(
+        min(world_width,world_height)*(relSize + relSize*rand())
+    ))
+    <span style="color: #fff59d;">return</span> max(s,1)
+<span style="color: #fff59d;">end</span>
+</code></pre>
+</div>
+
+<p>
+Define the parameters for generating the areas of leaf.  The leaf areas
+(combination of random location and random size) are stored in a Tuple where the
+first index is the location and the second index is the size.
+</p>
+
+<div class="org-src-container">
+<pre><code class="src src-julia"><span style="color: #b0bec5;"># </span><span style="color: #b0bec5;">Number of leaf areas</span>
+n_big = 1
+n_medium = rand(5:10)
+n_small = rand(20:30)
+<span style="color: #b0bec5;"># </span><span style="color: #b0bec5;">Size of leaf areas</span>
+points=[
+    [(randP(),randS(0.15)) <span style="color: #fff59d;">for</span> _ <span style="color: #fff59d;">in</span> 1:n_big]...,
+    [(randP(),randS(0.03)) <span style="color: #fff59d;">for</span> _ <span style="color: #fff59d;">in</span> 1:n_medium]...,
+    [(randP(),randS(0.005)) <span style="color: #fff59d;">for</span> _ <span style="color: #fff59d;">in</span> 1:n_small]...
+]
+</code></pre>
+</div>
+
+<p>
+Draw the leaf areas as circles using the radius p[2].
+</p>
+<div class="org-src-container">
+<pre><code class="src src-julia"><span style="color: #fff59d;">for</span> p <span style="color: #fff59d;">in</span> points
+    <span style="color: #b0bec5;"># </span><span style="color: #b0bec5;">Iterate of all possible coordinates from -r to +r in x and y direction.</span>
+    <span style="color: #fff59d;">for</span> dx <span style="color: #fff59d;">in</span> -p[2]:p[2], dy <span style="color: #fff59d;">in</span> -p[2]:p[2]
+        <span style="color: #b0bec5;"># </span><span style="color: #b0bec5;">Catch errors which occour when placing leafs above each other</span>
+        <span style="color: #fff59d;">try</span>
+            <span style="color: #b0bec5;"># </span><span style="color: #b0bec5;">Check if the current location is within the circle</span>
+            <span style="color: #fff59d;">if</span> dx^2+dy^2 &lt;= p[2]^2
+                <span style="color: #b0bec5;"># </span><span style="color: #b0bec5;">The location is obtained by adding the dx and dy to the</span>
+                <span style="color: #b0bec5;"># </span><span style="color: #b0bec5;">coordinate stored in p[1].</span>
+                loc_fix = location_fix_ooBound(
+                    world.world,Location(p[1].x+dx,p[1].y+dy)
+                )
+                <span style="color: #b0bec5;"># </span><span style="color: #b0bec5;">Place a leaf at the calculated location.</span>
+                JuliaKara.JuliaKara_noGUI.place_leaf(world.world,loc_fix.x,loc_fix.y)
+            <span style="color: #fff59d;">end</span> 
+        <span style="color: #fff59d;">end</span>
+    <span style="color: #fff59d;">end</span>
+<span style="color: #fff59d;">end</span>
+
+<span style="color: #b0bec5;"># </span><span style="color: #b0bec5;">Redraw the world</span>
+JuliaKara.world_redraw(world,<span style="color: #8bc34a;">true</span>)
+
+</code></pre>
+</div>
+
+<p>
+The code above generates the random world of leafs shown in Figure <a href="#org6c38774">1</a>.
+</p>
+
+
+<div id="org6c38774" class="figure">
+<p><img src="PSO/PSO_01.png" alt="PSO_01.png" />
+</p>
+<p><span class="figure-number">Figure 1: </span>50x50 World filled with random areas of leafs</p>
+</div>
+</div>
+</li>
+</ol>
+</div>
+
+<div id="outline-container-org8e5823c" class="outline-4">
+<h4 id="org8e5823c"><span class="section-number-4">1.3.3</span> Searching Algorithm</h4>
+<div class="outline-text-4" id="text-1-3-3">
+<p>
+As described in Section <a href="#org24d63bd">1.2</a> the "quality" of a location is determined by
+its density, meaning the ration of leafs and empty fields around the location.
+</p>
+<div class="org-src-container">
+<pre><code class="src src-julia"><span style="color: #9ccc65;">"The function returns the current leaf density at location p"</span>
+<span style="color: #fff59d;">function</span> <span style="color: #84ffff;">density_at</span>(world<span style="color: #ffffff; background-color: #263238;">::</span><span style="color: #84ffff;">JuliaKara</span>.World_GUI,p<span style="color: #ffffff; background-color: #263238;">::</span><span style="color: #84ffff;">Location</span>,r<span style="color: #ffffff; background-color: #263238;">::</span><span style="color: #84ffff;">Int</span>)
+    <span style="color: #b0bec5;"># </span><span style="color: #b0bec5;">Number of leafs</span>
+    c_leafs = 0
+    <span style="color: #b0bec5;"># </span><span style="color: #b0bec5;">Iterated of all possible positions within -r and +r in x and y</span>
+    <span style="color: #fff59d;">for</span> dx <span style="color: #fff59d;">in</span> -r:r, dy <span style="color: #fff59d;">in</span> -r:r
+        <span style="color: #b0bec5;"># </span><span style="color: #b0bec5;">Calculate the location by adding dx and dy to p.</span>
+        pos = location_fix_ooBound(world.world,Location(p.x+dx,p.y+dy))
+        <span style="color: #b0bec5;"># </span><span style="color: #b0bec5;">Check if there is a leaf at the position</span>
+        <span style="color: #fff59d;">if</span> actor_definition_at_location(world.world,pos,ACTOR_DEFINITIONS[<span style="color: #ffd700;">:leaf</span>]) 
+            c_leafs += 1
+        <span style="color: #fff59d;">end</span>
+    <span style="color: #fff59d;">end</span>
+    <span style="color: #b0bec5;"># </span><span style="color: #b0bec5;">The number of total fields is (2*r+1)</span>
+    <span style="color: #fff59d;">return</span> c_leafs / (2r+1)^2
+<span style="color: #fff59d;">end</span>
+</code></pre>
+</div>
+
+<p>
+One of the problems mentioned in Section <a href="#org24d63bd">1.2</a> is that the Karas eat the
+leafs they find. Therefore, it is difficult to implement the exact PSO algorithm
+as \(v_{i,j}\), \(p_{i,j}^{best}\) and \(p_{i,j}^{gbest}\) change in every iteration.
+Hence, for this implementation \(v_{i,j}\) is neglected for the step \(j+1\),
+\(p_{i,j}^{best}\) is assumed to the location of a (random) field around kara with
+a leaf and \(p_{i,j}^{qbest}\) is the currently best density.
+</p>
+
+<p>
+To obtain \(p_{i,j}^{best}\) a function <code>next_leaf</code> is defined as follows.
+</p>
+
+<div class="org-src-container">
+<pre><code class="src src-julia"><span style="color: #9ccc65;">"The functions returns the movement (dx,dy) needed to reach a leaf."</span>
+<span style="color: #fff59d;">function</span> <span style="color: #84ffff;">next_leaf</span>(world<span style="color: #ffffff; background-color: #263238;">::</span><span style="color: #84ffff;">JuliaKara</span>.World_GUI,p<span style="color: #ffffff; background-color: #263238;">::</span><span style="color: #84ffff;">Location</span>)
+    <span style="color: #b0bec5;"># </span><span style="color: #b0bec5;">Shuffle the list of possible dx,dy movements around the current position to</span>
+    <span style="color: #b0bec5;"># </span><span style="color: #b0bec5;">always return a different one.</span>
+    <span style="color: #fff59d;">for</span> dp <span style="color: #fff59d;">in</span> shuffle([(1,0),(-1,0),(0,1),(0,-1),(-1,1),(1,1),(1,-1),(-1,-1)])
+        <span style="color: #b0bec5;"># </span><span style="color: #b0bec5;">Calculate the location</span>
+        pos = location_fix_ooBound(world.world,Location(p.x+dp[1],p.y+dp[2]))
+        <span style="color: #b0bec5;"># </span><span style="color: #b0bec5;">Only take this location if a leaf and no other kara is there.</span>
+        <span style="color: #fff59d;">if</span> (actor_definition_at_location(world.world,pos,ACTOR_DEFINITIONS[<span style="color: #ffd700;">:leaf</span>])
+            &amp;&amp; !actor_definition_at_location(world.world,pos,ACTOR_DEFINITIONS[<span style="color: #ffd700;">:kara</span>]))
+            <span style="color: #fff59d;">return</span> dp
+        <span style="color: #fff59d;">end</span>
+    <span style="color: #fff59d;">end</span>
+    <span style="color: #b0bec5;"># </span><span style="color: #b0bec5;">If no possible location was found return the current.</span>
+    <span style="color: #fff59d;">return</span> (0,0)
+<span style="color: #fff59d;">end</span>
+
+</code></pre>
+</div>
+
+<p>
+In each iteration the Karas are updated by means of the implementation described
+in Section <a href="#org24d63bd">1.2</a>.
+</p>
+
+<div class="org-src-container">
+<pre><code class="src src-julia"><span style="color: #fff59d;">function</span> <span style="color: #84ffff;">update_kara!</span>(world<span style="color: #ffffff; background-color: #263238;">::</span><span style="color: #84ffff;">JuliaKara</span>.World_GUI,kara<span style="color: #ffffff; background-color: #263238;">::</span><span style="color: #84ffff;">Actor</span>,p_gbest<span style="color: #ffffff; background-color: #263238;">::</span><span style="color: #84ffff;">Location</span>)
+    <span style="color: #b0bec5;"># </span><span style="color: #b0bec5;">Parameters for the PSO</span>
+    c_1,c_2,r_1,r_2 = 50,2,rand(),rand()
+    <span style="color: #b0bec5;"># </span><span style="color: #b0bec5;">Relativ movement to the next leaf as tuple</span>
+    dL = next_leaf(world,kara.location)
+    <span style="color: #b0bec5;"># </span><span style="color: #b0bec5;">Relative movement to the currently highest density as tuple</span>
+    dGg = ((p_gbest.x - kara.location.x), (p_gbest.y - kara.location.y))
+    <span style="color: #b0bec5;"># </span><span style="color: #b0bec5;">Ceck if moving out at one side of the world is faster than moving across</span>
+    dGg = (
+        abs(dGg[1]) &gt; world_width/2 ? -sign(dGg[1])*(world_width-abs(dGg[1])) : dGg[1],
+        abs(dGg[2]) &gt; world_height/2 ? -sign(dGg[2])*(world_height-abs(dGg[2])) : dGg[2],
+    )
+    <span style="color: #b0bec5;"># </span><span style="color: #b0bec5;">Velocities or relative movements for the next step</span>
+    <span style="color: #b0bec5;"># </span><span style="color: #b0bec5;">Round and convert to integer, as kara can only move by single fields</span>
+    dx = convert(<span style="color: #84ffff;">Int</span>,round(c_1 * r_1 * dL[1] + c_2 * r_2 * dGg[1]))
+    dy = convert(<span style="color: #84ffff;">Int</span>,round(c_1 * r_1 * dL[2] + c_2 * r_2 * dGg[2]))
+    <span style="color: #b0bec5;"># </span><span style="color: #b0bec5;">At this point it is possible that dx and/or dy are 0.</span>
+    <span style="color: #b0bec5;"># </span><span style="color: #b0bec5;">Therefore to prevent stagnation pick a random direction.</span>
+    dx = dx==0 ? rand([-1,1]) : dx
+    dy = dy==0 ? rand([-1,1]) : dy
+    <span style="color: #b0bec5;"># </span><span style="color: #b0bec5;">Perform the movement under the restriction of only moving one field into x</span>
+    <span style="color: #b0bec5;"># </span><span style="color: #b0bec5;">and y. </span>
+    <span style="color: #fff59d;">if</span> dx&lt;0
+        <span style="color: #b0bec5;"># </span><span style="color: #b0bec5;">Turn west</span>
+        <span style="color: #fff59d;">while</span> kara.orientation != Orientation(<span style="color: #ffd700;">:WEST</span>)
+            turnLeft(world,kara)
+        <span style="color: #fff59d;">end</span>
+        move(world,kara)
+    <span style="color: #fff59d;">elseif</span> dx&gt;0
+        <span style="color: #b0bec5;"># </span><span style="color: #b0bec5;">Turn east</span>
+        <span style="color: #fff59d;">while</span> kara.orientation != Orientation(<span style="color: #ffd700;">:EAST</span>)
+            turnLeft(world,kara)
+        <span style="color: #fff59d;">end</span>
+        move(world,kara)
+    <span style="color: #fff59d;">end</span>
+    <span style="color: #fff59d;">if</span> dy&lt;0
+        <span style="color: #b0bec5;"># </span><span style="color: #b0bec5;">Turn south</span>
+        <span style="color: #fff59d;">while</span> kara.orientation != Orientation(<span style="color: #ffd700;">:SOUTH</span>)
+            turnLeft(world,kara)
+        <span style="color: #fff59d;">end</span>
+        move(world,kara)
+    <span style="color: #fff59d;">elseif</span> dy&gt;0
+        <span style="color: #b0bec5;"># </span><span style="color: #b0bec5;">Turn north</span>
+        <span style="color: #fff59d;">while</span> kara.orientation != Orientation(<span style="color: #ffd700;">:NORTH</span>)
+            turnLeft(world,kara)
+        <span style="color: #fff59d;">end</span>
+        move(world,kara)
+    <span style="color: #fff59d;">end</span>
+    <span style="color: #b0bec5;"># </span><span style="color: #b0bec5;">If Kara is on a leaf ... eat it!</span>
+    <span style="color: #fff59d;">if</span> onLeaf(world,kara)
+        removeLeaf(world,kara)
+    <span style="color: #fff59d;">end</span>
+<span style="color: #fff59d;">end</span>
+</code></pre>
+</div>
+
+<p>
+As all Karas within the world need an update in the iteration another method is
+defined which updates a vector of Karas.
+In some cases it is possible that the maximum density is reached at multiple
+locations, therefore, the desired maximum is picked randomly from the list of
+multiple karas.
+</p>
+
+<div class="org-src-container">
+<pre><code class="src src-julia"><span style="color: #fff59d;">function</span> <span style="color: #84ffff;">update_kara!</span>(world<span style="color: #ffffff; background-color: #263238;">::</span><span style="color: #84ffff;">JuliaKara</span>.World_GUI,karas<span style="color: #ffffff; background-color: #263238;">::</span><span style="color: #84ffff;">Vector</span>{Actor})
+    <span style="color: #b0bec5;"># </span><span style="color: #b0bec5;">All current densities</span>
+    dens = [density_at(world,pi.location,2) <span style="color: #fff59d;">for</span> pi <span style="color: #fff59d;">in</span> karas]
+    <span style="color: #b0bec5;"># </span><span style="color: #b0bec5;">The maximum density</span>
+    dens_max = maximum(dens)
+    <span style="color: #b0bec5;"># </span><span style="color: #b0bec5;">All indices where the maxmimum density occured</span>
+    dens_inds = filter(i-&gt;dens[i]==dens_max,1:length(karas))
+    <span style="color: #b0bec5;"># </span><span style="color: #b0bec5;">Iterate over all karas</span>
+    <span style="color: #fff59d;">for</span> (i,kara) <span style="color: #fff59d;">in</span> enumerate(karas)
+        <span style="color: #b0bec5;"># </span><span style="color: #b0bec5;">If kara itself is contained in the maximum densites then take this</span>
+        <span style="color: #b0bec5;"># </span><span style="color: #b0bec5;">location</span>
+        ind = i <span style="color: #fff59d;">in</span> dens_inds ? i : shuffle(dens_inds)[1]
+        <span style="color: #b0bec5;"># </span><span style="color: #b0bec5;">Update this kara</span>
+        <span style="color: #fff59d;">try</span>
+            update_kara!(world,
+                         kara,
+                         karas[ind].location
+                         )
+        <span style="color: #fff59d;">end</span>
+    <span style="color: #fff59d;">end</span>
+<span style="color: #fff59d;">end</span>
+
+</code></pre>
+</div>
+
+<p>
+The number of Karas to be placed in the world is defined by the following
+variable.
+</p>
+
+<div class="org-src-container">
+<pre><code class="src src-julia">number_of_karas = 20
+</code></pre>
+</div>
+
+<p>
+Place the Karas at random positions.
+</p>
+
+<div class="org-src-container">
+<pre><code class="src src-julia"><span style="color: #b0bec5;"># </span><span style="color: #b0bec5;">Store all Karas in a vector</span>
+karas = Actor[]
+sizehint!(karas,number_of_karas)
+<span style="color: #fff59d;">for</span> i <span style="color: #fff59d;">in</span> 1:number_of_karas
+    <span style="color: #b0bec5;"># </span><span style="color: #b0bec5;">Generate a random positon</span>
+    loc = randP()
+    <span style="color: #b0bec5;"># </span><span style="color: #b0bec5;">Place Kara there if no other Kara is placed there.</span>
+    <span style="color: #fff59d;">while</span> actor_definition_at_location(world.world,loc,ACTOR_DEFINITIONS[<span style="color: #ffd700;">:kara</span>]) 
+        loc = randP()
+    <span style="color: #fff59d;">end</span>
+    <span style="color: #b0bec5;"># </span><span style="color: #b0bec5;">Add kara to the list of karas and place in, facing north, into the world.</span>
+    push!(karas,place_kara(world,loc.x,loc.y,<span style="color: #ffd700;">:NORTH</span>))
+<span style="color: #fff59d;">end</span>
+
+</code></pre>
+</div>
+
+
+<div class="figure">
+<p><img src="PSO/PSO_02.png" alt="PSO_02.png" />
+</p>
+<p><span class="figure-number">Figure 2: </span>Starting positions of 20 Karas</p>
+</div>
+
+<p>
+Run the optimisation for 500 steps.
+</p>
+
+<div class="org-src-container">
+<pre><code class="src src-julia"><span style="color: #fff59d;">for</span> i <span style="color: #fff59d;">in</span> 1:500
+    update_kara!(world,karas)
+<span style="color: #fff59d;">end</span>
+</code></pre>
+</div>
+
+
+<div class="figure">
+<p><img src="PSO/PSO_03.gif" alt="PSO_03.gif" />
+</p>
+<p><span class="figure-number">Figure 3: </span>Karas start to eat</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1">1</a></sup> <div class="footpara"><p class="footpara">
+<a href="http://www.swarmintelligence.org/tutorials.php">http://www.swarmintelligence.org/tutorials.php</a>
+</p></div></div>
+
+
+</div>
+</div></div>
+<div id="postamble" class="status">
+<p class="author">Author: Sebastian Pech</p>
+<p class="date">Created: 2017-09-17 Son 21:01</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
