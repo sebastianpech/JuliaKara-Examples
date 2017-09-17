@@ -1,0 +1,79 @@
+* Problem description
+The aim of this example is to enable keyboard controls for Kara.
+The arrow keys shall be used to
+- move forward,
+- turn right and
+- turn left.
+=l= shall be used to place or remove a leaf.
+
+* Implementation
+To startup =JuliaKara= it is loaded and for convenience some additional methods
+are imported.
+Furthermore to connect signals to functions and events =Gtk= is loaded.
+#+BEGIN_SRC julia :session :results output silent
+  using JuliaKara
+  using Gtk
+  using Gtk.ShortNames
+  import JuliaKara.JuliaKara_noGUI.Actor
+#+END_SRC
+
+The world is initialised as follows.
+
+#+BEGIN_SRC julia :session :results output silent
+  @World (10,10)
+#+END_SRC
+
+To allow connection of various worlds (windows) to the contained Karas the function 
+=kara_keybinding= is defined which brings =world= and =kara= into a local scope
+to the returned function which in turn actually performs the desired operations.
+
+The possible operations are defined in a dictionary named =actions=.
+#+BEGIN_SRC julia :session :results output silent
+  function kara_keybinding(world::JuliaKara.World_GUI,kara::Actor)
+      function (widget,event)
+          actions = Dict( 
+              Gtk.GdkKeySyms.Up => ()->move(world,kara),
+              Gtk.GdkKeySyms.Left => ()->turnLeft(world,kara),
+              Gtk.GdkKeySyms.Right => ()->turnRight(world,kara),
+              Gtk.keyval("l") => function ()
+                  if onLeaf(world,kara)
+                      removeLeaf(world,kara)
+                  else
+                      putLeaf(world,kara)
+                  end
+              end 
+          )
+          if event.keyval in keys(actions)
+              actions[event.keyval]()
+          end
+      end
+  end
+
+#+END_SRC
+
+To connect the defined function the function =signal_connect= is used, which
+binds the function returned from =kara_keybinding= to the =key-release-event= [fn:1].
+
+#+BEGIN_SRC julia :session :results output silent
+  id = signal_connect(
+      kara_keybinding(world,kara),
+      world.window,
+      "key-release-event"
+  )
+#+END_SRC
+
+Now it's possible to move Kara using the arrow keys and place and remove leafs
+using =l=.
+
+* Footnotes
+
+[fn:1] https://developer.gnome.org/gtk3/stable/GtkWidget.html#GtkWidget-key-release-event
+
+
+
+
+
+
+
+
+

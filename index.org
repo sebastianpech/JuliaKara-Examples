@@ -14,3 +14,5 @@
 
 * Particle Swarm Optimisation using JuliaKara
 #+INCLUDE: "PSO.org"
+* Control Kara using the keyboard
+#+INCLUDE: "KeyControl.org"

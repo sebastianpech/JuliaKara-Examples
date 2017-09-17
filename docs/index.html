@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-09-17 Son 21:01 -->
+<!-- 2017-09-17 Son 21:59 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>JuliaKara Examples</title>
@@ -274,6 +274,12 @@ for the JavaScript code in this tag.
 <li><a href="#org8e5823c">1.3.3. Searching Algorithm</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li><a href="#org25eb821">2. Control Kara using the keyboard</a>
+<ul>
+<li><a href="#org8d21e9f">2.1. Problem description</a></li>
+<li><a href="#org7d27383">2.2. Implementation</a></li>
 </ul>
 </li>
 </ul>
@@ -693,6 +699,107 @@ Run the optimisation for 500 steps.
 </div>
 </div>
 </div>
+<div id="outline-container-org25eb821" class="outline-2">
+<h2 id="org25eb821"><span class="section-number-2">2</span> Control Kara using the keyboard</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-org8d21e9f" class="outline-3">
+<h3 id="org8d21e9f"><span class="section-number-3">2.1</span> Problem description</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+The aim of this example is to enable keyboard controls for Kara.
+The arrow keys shall be used to
+</p>
+<ul class="org-ul">
+<li>move forward,</li>
+<li>turn right and</li>
+<li>turn left.</li>
+</ul>
+<p>
+<code>l</code> shall be used to place or remove a leaf.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org7d27383" class="outline-3">
+<h3 id="org7d27383"><span class="section-number-3">2.2</span> Implementation</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+To startup <code>JuliaKara</code> it is loaded and for convenience some additional methods
+are imported.
+Furthermore to connect signal to functions and events <code>Gtk</code> is loaded.
+</p>
+<div class="org-src-container">
+<pre><code class="src src-julia"><span style="color: #fff59d;">using</span> JuliaKara
+<span style="color: #fff59d;">using</span> Gtk
+<span style="color: #fff59d;">using</span> Gtk.ShortNames
+<span style="color: #fff59d;">import</span> JuliaKara.JuliaKara_noGUI.Actor
+</code></pre>
+</div>
+
+<p>
+The world is initialised as follows.
+</p>
+
+<div class="org-src-container">
+<pre><code class="src src-julia"><span style="color: #ffd700;">@World</span> (10,10)
+</code></pre>
+</div>
+
+<p>
+To allow connection of various worlds (windows) to the contained Karas the function 
+<code>kara_keybinding</code> is defined which brings <code>world</code> and <code>kara</code> into a local scope
+to the returned function which actually performs the desired operations.
+</p>
+
+<p>
+The possible operations are defined in a dictionary named <code>actions</code>.
+</p>
+<div class="org-src-container">
+<pre><code class="src src-julia"><span style="color: #fff59d;">function</span> <span style="color: #84ffff;">kara_keybinding</span>(world<span style="color: #ffffff; background-color: #263238;">::</span><span style="color: #84ffff;">JuliaKara</span>.World_GUI,kara<span style="color: #ffffff; background-color: #263238;">::</span><span style="color: #84ffff;">Actor</span>)
+    <span style="color: #fff59d;">function</span> (widget,event)
+        actions = <span style="color: #84ffff;">Dict</span>( 
+            Gtk.GdkKeySyms.Up =&gt; ()-&gt;move(world,kara),
+            Gtk.GdkKeySyms.Left =&gt; ()-&gt;turnLeft(world,kara),
+            Gtk.GdkKeySyms.Right =&gt; ()-&gt;turnRight(world,kara),
+            Gtk.<span style="color: #84ffff;">keyval</span>(<span style="color: #9ccc65;">"l"</span>) =&gt; <span style="color: #fff59d;">function</span> ()
+                <span style="color: #fff59d;">if</span> onLeaf(world,kara)
+                    removeLeaf(world,kara)
+                <span style="color: #fff59d;">else</span>
+                    putLeaf(world,kara)
+                <span style="color: #fff59d;">end</span>
+            <span style="color: #fff59d;">end</span> 
+        )
+        <span style="color: #fff59d;">if</span> event.keyval <span style="color: #fff59d;">in</span> keys(actions)
+            actions[event.keyval]()
+        <span style="color: #fff59d;">end</span>
+    <span style="color: #fff59d;">end</span>
+<span style="color: #fff59d;">end</span>
+
+</code></pre>
+</div>
+
+<p>
+To connect the defined function the function <code>signal_connect</code> is used, which
+binds the function returned from <code>kara_keybinding</code> to the <code>key-release-event</code> <sup><a id="fnr.2" class="footref" href="#fn.2">2</a></sup>.
+</p>
+
+<div class="org-src-container">
+<pre><code class="src src-julia">id = signal_connect(
+    kara_keybinding(world,kara),
+    world.window,
+    <span style="color: #9ccc65;">"key-release-event"</span>
+)
+</code></pre>
+</div>
+
+<p>
+Now it's possible to move Kara using the arrow keys and place and remove leafs
+using <code>l</code>.
+</p>
+</div>
+</div>
+</div>
 <div id="footnotes">
 <h2 class="footnotes">Footnotes: </h2>
 <div id="text-footnotes">
@@ -701,12 +808,16 @@ Run the optimisation for 500 steps.
 <a href="http://www.swarmintelligence.org/tutorials.php">http://www.swarmintelligence.org/tutorials.php</a>
 </p></div></div>
 
+<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2">2</a></sup> <div class="footpara"><p class="footpara">
+<a href="https://developer.gnome.org/gtk3/stable/GtkWidget.html#GtkWidget-key-release-event">https://developer.gnome.org/gtk3/stable/GtkWidget.html#GtkWidget-key-release-event</a>
+</p></div></div>
+
 
 </div>
 </div></div>
 <div id="postamble" class="status">
 <p class="author">Author: Sebastian Pech</p>
-<p class="date">Created: 2017-09-17 Son 21:01</p>
+<p class="date">Created: 2017-09-17 Son 21:59</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
